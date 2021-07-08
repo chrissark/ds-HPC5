@@ -1,4 +1,4 @@
-# Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.2 + transformers на кластере HPC5
+# Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.3 + transformers на кластере HPC5
 
 ## 1. Установка Anaconda
   1. В режиме стандартного пользователя без прав root загрузите последнюю версию скрипта bash установки Anaconda (на момент написания последняя версия 2021.05): 
@@ -36,11 +36,46 @@
      source .bashrc
      ```
   Более подробное описание установки и использования Anaconda [здесь](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-20-04-ru).
-## 2. Создание environment
-## 3. Установка PyTorch
-## 4. Установка DeepSpeed
+## 2. Создание conda environment с PyTorch и transformers
+   1. Подключите CUDA 10.1:
+      
+      ```
+      module load cuda/10.1
+      ```
+      
+   2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. PyTorch и transformers:
+      
+      ```
+      conda env create --name deepspeed_env --file deepspeed_env.yml
+      ```
+   3. Активируйте среду:
 
-## 5. Установка transformers
-## 6. Использование
+      ```
+      conda activate deepspeed_env
+      ```
+      
+## 3. Сборка DeepSpeed
+   1. DeepSpeed нужно собрать отдельно в созданном environment. Для этого скопируйте репозиторий DeepSpeed:
+      
+      ```
+      git clone --recursive https://github.com/microsoft/DeepSpeed
+      ```
+   2. Укажите Compute Capability для установленных на кластере карт в переменной ```TORCH_CUDA_ARCH_LIST```. Значения Compute Capability можно посмотреть [здесь](https://developer.nvidia.com/cuda-gpus#compute), для Nvidia Telsa K80 - 3.7, для Nvidia V100 - 7.0.
+   
+      ```
+      export TORCH_CUDA_ARCH_LIST="3.7"
+      ```
+  3. Перейдите в директорию DeepSpeed. Выполните следующую команду:
+  
+     ```
+     pip install .
+     ```
+  4. Проверьте правильность установки DeepSpeed. Для этого выполните следующую команду:
+     
+     ```
+     ds_report
+     ```  
+     Вывод команды должен выглядеть так:
+     ![изображение](https://user-images.githubusercontent.com/64375679/124972392-f6e32500-e032-11eb-9e85-3ff39282653d.png)
 
-### Установка Anaconda
+ 
