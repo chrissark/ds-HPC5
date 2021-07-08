@@ -35,7 +35,7 @@
      ```
      source .bashrc
      ```
-
+  Более подробное описание установки и использования Anaconda [здесь](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-20-04-ru).
 ## 2. Создание environment
 ## 3. Установка PyTorch
 ## 4. Установка DeepSpeed
