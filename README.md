@@ -11,7 +11,30 @@
      ```
      sha256sum anaconda.sh
      ```
-     Необходимо проверить вывод этой команды на соответствие [хэшу Anaconda с Python 3 на странице 64-битной версии Linux](https://docs.anaconda.com/anaconda/install/hashes/lin-3-64/) для соответствующей версии Anaconda. Если вывод соответствует хэшу, отображаемому в строке sha2561, вы можете продолжать.
+     Необходимо проверить вывод этой команды на соответствие [хэшу Anaconda с Python 3 на странице 64-битной версии Linux](https://docs.anaconda.com/anaconda/install/hashes/lin-3-64/) для соответствующей версии Anaconda. Если вывод соответствует хэшу, отображаемому в строке sha256, вы можете продолжать.
+     
+  3. Запустите скрипт установки и следуйте дальнейшим инструкциям на экране:
+     
+     ```
+     bash anaconda.sh
+     ```
+     **ВАЖНО**: путь для установки Anaconda обязательно должен начинаться с ```/s/ls4```. В противном случае, если оставить путь по умолчанию, начинающийся с символической ссылки  ```/home```, Anaconda будет невозможно активировать в SLURM-сценариях.
+     
+     ```
+     Output
+     Anaconda3 will now be installed into this location:
+     /home/kristina/anaconda3
+     - Press ENTER to confirm the location
+     - Press CTRL-C to abort the installation
+     - Or specify a different location below
+
+     [/home/kristina/anaconda3] >>> /s/ls4/users/kristina/anaconda3
+      ```
+  4. Активируйте установку:
+     
+     ```
+     source .bashrc
+     ```
 
 ## 2. Создание environment
 ## 3. Установка PyTorch
