@@ -1,0 +1,32 @@
+name: null
+
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+
+dependencies:
+  - ccache
+  - cmake
+  - cudatoolkit=10.1
+  - cudnn=7.6
+  - cxx-compiler
+  - jupyterlab
+  - mpi4py
+  - nccl
+  - pip
+  - python=3.8
+  - pytorch-gpu=1.7.1
+
+  - pip:
+  - tensorboard=2.4
+  - torchaudio
+  - torchvision
+  - tqdm
+  - tensorboardX==1.8
+  - ninja
+  - numpy
+  - psutil
+  - packaging
+  - transformers
+  - datasets
