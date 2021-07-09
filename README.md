@@ -16,7 +16,7 @@
      ```
      curl https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh --output anaconda.sh
       ```
-  2. Проверка целостности данных программы установки:
+  2. Проверьте целостность данных программы установки с помощью следующей команды:
 
      ```
      sha256sum anaconda.sh
@@ -132,7 +132,7 @@ model = GPT2LMHeadModel.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt
 
 ### Интеграция transformers с DeepSpeed
 
-Обучение в примере происходит с помощью специального класса Trainer библиотеки transformers. Для подключения DeepSpeed объекту типа Trainer нужно передать в качестве аргумента путь к конфигурационному JSON-файлу в TrainingArguments:
+Обучение в примере происходит с помощью специального класса [Trainer](https://huggingface.co/transformers/main_classes/trainer.html) библиотеки transformers. Для подключения DeepSpeed объекту типа Trainer нужно передать в качестве аргумента путь к конфигурационному JSON-файлу в TrainingArguments:
 
 ```python
 from transformers import Trainer, TrainingArguments
@@ -176,5 +176,6 @@ mpirun python3 ds_gpt2.py
 - [transformers loading methods](https://huggingface.co/docs/datasets/package_reference/loading_methods.html#datasets.load_dataset)
 - [transformers save_pretrained()](https://huggingface.co/transformers/main_classes/model.html#transformers.PreTrainedModel.save_pretrained)
 - [transformers from_pretrained()](https://huggingface.co/transformers/main_classes/configuration.html#transformers.PretrainedConfig.from_pretrained)
+- [Trainer](https://huggingface.co/transformers/main_classes/trainer.html)
 
 
