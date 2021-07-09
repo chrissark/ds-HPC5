@@ -46,12 +46,12 @@
    2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. PyTorch-gpu 1.7.1 и transformers:
       
       ```
-      conda env create --name deepspeed_env --file deepspeed_env.yml
+      conda env create --name ds_env --file deepspeed_env.yml
       ```
    3. Активируйте среду:
 
       ```
-      conda activate deepspeed_env
+      conda activate ds_env
       ```
    Подключать CUDA 10.1 следует при каждой активации созданной среды. Так, ```module load cuda/10.1``` нужно прописывать в SLURM-сценариях перед ```conda activate```.
       
@@ -142,5 +142,16 @@ trainer = Trainer(
 ```
 
 Подробнее об интеграции transformers с DeepSpeed, а также о том, как обучать модели без Trainer с помощью PyTorch и DeepSpeed [здесь](https://huggingface.co/transformers/master/main_classes/deepspeed.html).
+
+## Запуск параллельной задачи SLURM
+
+Пример сценария для запуска обучения GPT-2 на 5 узлах с 4 GPU: [slurm_ds_gpt2.sh](slurm_ds_gpt2.sh).
+Число узлов регулируется параметром ```--nodes```. Для того, чтобы задействовать все 4 графические карты на узле, параметр ```ntasks-per-node``` должен быть равен 4.
+
+Запуск вычисленний осуществляется с помощью следующей команды:
+
+```
+mpirun python3 ds_gpt2.py
+```
 
 
