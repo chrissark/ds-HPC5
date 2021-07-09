@@ -11,6 +11,6 @@ module load cuda/10.1
 
 export HOME=/s/ls4/users/kristina
 source $HOME/.bashrc
-conda activate $HOME/deepspeed_env
+conda activate ds_env
 
 mpirun python3 gpt2.py
