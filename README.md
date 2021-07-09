@@ -132,7 +132,7 @@ model = GPT2LMHeadModel.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt
 
 ### Интеграция transformers с DeepSpeed
 
-Обучение в примере происходит с помощью специального класса [Trainer](https://huggingface.co/transformers/main_classes/trainer.html) библиотеки transformers. Для подключения DeepSpeed объекту типа Trainer нужно передать в качестве аргумента путь к конфигурационному JSON-файлу в TrainingArguments:
+Обучение в примере происходит с помощью специального класса [Trainer](https://huggingface.co/transformers/main_classes/trainer.html) библиотеки transformers. Для подключения DeepSpeed объекту типа Trainer нужно передать в качестве аргумента путь к конфигурационному JSON-файлу в [TrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#trainingarguments):
 
 ```python
 from transformers import Trainer, TrainingArguments
