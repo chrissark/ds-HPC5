@@ -13,4 +13,4 @@ export HOME=/s/ls4/users/kristina
 source $HOME/.bashrc
 conda activate ds_env
 
-mpirun python3 gpt2.py
+mpirun python3 ds_gpt2.py
