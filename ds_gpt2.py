@@ -1,14 +1,15 @@
-from datasets import load_dataset
+from datasets import load_from_disk
+datasets = load_from_disk('./wikitext')
 import time
 import deepspeed
+from mpi4py import MPI
 
-
-datasets = load_dataset('wikitext', 'wikitext-2-raw-v1', cache_dir='/s/ls4/users/kristina/nlp/GPT-2/wikitexts')
-
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
 
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
-tokenizer = GPT2Tokenizer.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2-tokenizer/')
-model = GPT2LMHeadModel.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2')
+tokenizer = GPT2Tokenizer.from_pretrained('./distgpt2-tokenizer/')
+model = GPT2LMHeadModel.from_pretrained('./distgpt2')
 
 def tokenize_function(examples):
     return tokenizer(examples["text"])
@@ -61,8 +62,10 @@ trainer.train()
 end = time.time()
 
 
-#import math
-#eval_results = trainer.evaluate()
-#print(f"Perplexity: {math.exp(eval_results['eval_loss']):.2f}")
+import math
+eval_results = trainer.evaluate()
 
-print ("Time per epoch: ", round((end - start), 2))
+
+if rank == 0:
+   print ("Time per epoch: ", round((end - start), 2))
+   print(f"Perplexity: {math.exp(eval_results['eval_loss']):.2f}")
