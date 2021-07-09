@@ -1,5 +1,7 @@
 # Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.3 + transformers 4.6.1 на кластере HPC5
 
+Для обучения моделей-трансформеров в распределенном режиме с помощью DeepSpeed на кластере требуется создать среду в Anaconda с установленными библиотеками PyTorch 1.7.1 и transormers 4.6.1, затем в этой среде собрать DeepSpeed. Ниже приведена инструкция по установке Anaconda, созданию conda environment, сборке DeepSpeed. Также в репозитории содержатся файлы примера обучения GPT-2: скрипт обучения [ds_gpt2.py](ds_gpt2.py), конфигурационный файл JSON для DeepSpeed [ds_config.json] и SLURM-сценарий запуска задачи [slurm_ds_gpt2.sh](slurm_ds_gpt2.sh).
+
  - [Установка Anaconda](#установка-anaconda) 
  - [Создание conda environment с PyTorch и transformers](#создание-conda-environment-с-pytorch-и-transformers)
  - [Сборка DeepSpeed](#сборка-deepspeed)
