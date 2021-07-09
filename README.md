@@ -4,7 +4,9 @@
  - [Создание conda environment с PyTorch и transformers](#создание-conda-environment-с-pytorch-и-transformers)
  - [Сборка DeepSpeed](#сборка-deepspeed)
  - [Пример программы для обучения GPT-2](#пример-программы-для-обучения-gpt-2)
+    - [Интеграция transformers с DeepSpeed](#интеграция-transformers-с-deepspeed)
  - [Запуск параллельной задачи SLURM](#запуск-параллельной-задачи-slurm)
+ - [Ссылки](#ссылки)
 
 ## Установка Anaconda
   1. В режиме стандартного пользователя без прав root загрузите последнюю версию скрипта bash установки Anaconda (на момент написания последняя версия 2021.05): 
@@ -49,7 +51,7 @@
       module load cuda/10.1
       ```
       
-   2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. PyTorch-gpu 1.7.1 и transformers:
+   2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. [PyTorch-gpu 1.7.1](https://anaconda.org/conda-forge/pytorch-gpu/files)  и [transformers](https://huggingface.co/transformers/master/index.html):
       
       ```
       conda env create --name ds_env --file deepspeed_env.yml
@@ -159,5 +161,18 @@ trainer = Trainer(
 ```
 mpirun python3 ds_gpt2.py
 ```
+
+## Ссылки
+- [Установка Anaconda](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-20-04-ru)
+- [PyTorch-gpu 1.7.1](https://anaconda.org/conda-forge/pytorch-gpu/files)
+- [transformers](https://huggingface.co/transformers/master/index.html)
+- [CUDA GPUs Compute Capability](ttps://developer.nvidia.com/cuda-gpus#compute)
+- [DeepSpeed Advanced Install](https://www.deepspeed.ai/tutorials/advanced-install/)
+- [DeepSpeed Integration (transformers)](https://huggingface.co/transformers/master/main_classes/deepspeed.html)
+- [DeepSpeed конфигурационные файлы JSON](https://www.deepspeed.ai/docs/config-json/)
+- [Wikitext dataset](https://huggingface.co/datasets/wikitext)
+- [transformers loading methods](https://huggingface.co/docs/datasets/package_reference/loading_methods.html#datasets.load_dataset)
+- [transformers save_pretrained()](https://huggingface.co/transformers/main_classes/model.html#transformers.PreTrainedModel.save_pretrained)
+- [transformers from_pretrained()](https://huggingface.co/transformers/main_classes/configuration.html#transformers.PretrainedConfig.from_pretrained)
 
 
