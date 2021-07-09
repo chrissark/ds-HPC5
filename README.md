@@ -90,13 +90,21 @@
 
 ## Пример программы для обучения GPT-2
 
-Для обучения GPT-2 с помощью DeepSpeed, PyTorch и библиотеки transformers потребуется скрипт [ds_gpt2.py](ds_gpt2.py) и конфигурационный файл [ds_config.json](ds_config.json). Подробнее о конфигурационных JSON файлах DeepSpeed [здесь](https://www.deepspeed.ai/docs/config-json/). Для обучения GPT-2 используется датасет [wikitext](https://huggingface.co/datasets/wikitext).
+Для обучения GPT-2 с помощью DeepSpeed, PyTorch и библиотеки transformers потребуется скрипт [ds_gpt2.py](ds_gpt2.py) и конфигурационный файл [ds_config.json](ds_config.json). На кластере файлы лежат в директории ```/s/ls4/users/kristina/nlp/GPT-2```. Подробнее о конфигурационных JSON файлах DeepSpeed [здесь](https://www.deepspeed.ai/docs/config-json/). Для обучения GPT-2 используется датасет [wikitext](https://huggingface.co/datasets/wikitext).
 
-**Замечание**: при обучении моделей на кластере датасеты, модели и др. данные следует загружать **локально**, поскольку на узлах отсутствует подключение к Интернет. В данном примере загружается кэшированная версия датасета, лежащая в ```cache_dir```, сохраненная после предыдущего запуска программы на головном узле fjord1, на котором есть Интернет. 
+**Замечание**: при обучении моделей на кластере датасеты, модели и др. данные следует загружать **локально**, поскольку на узлах отсутствует подключение к Интернет. В данном примере загружается версия датасета, лежащая в ```/s/ls4/users/kristina/nlp/GPT-2/wikitext```, сохраненная после предыдущего запуска программы на головном узле fjord1, на котором есть Интернет, с помощью метода datasets [save_to_disk()](https://huggingface.co/docs/datasets/package_reference/loading_methods.html#datasets.load_dataset):
 
 ```python
-datasets = load_dataset('wikitext', 'wikitext-2-raw-v1', cache_dir='/s/ls4/users/kristina/nlp/GPT-2/wikitexts')
+datasets = load_dataset('wikitext', 'wikitext-2-raw-v1')
+datasets.save_to_disk('./wikitext')
 ```
+Загрузка датасета с помощью [load_from_disk()](https://huggingface.co/docs/datasets/package_reference/loading_methods.html#datasets.load_dataset):
+
+```python
+from datasets import load_from_disk
+datasets = load_from_disk('./wikitext')
+```
+
 Модель и токенизатор предварительно были сохранены при запуске программы на fjord1 с помощью метода [save_pretrained()](https://huggingface.co/transformers/main_classes/model.html#transformers.PreTrainedModel.save_pretrained) библиотеки transofmers:
 
 ```python
@@ -111,3 +119,28 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 tokenizer = GPT2Tokenizer.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2-tokenizer/')
 model = GPT2LMHeadModel.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2')
 ```
+
+### Интеграция transformers с DeepSpeed
+
+Обучение в примере происходит с помощью специального класса Trainer библиотеки transformers. Для подключения DeepSpeed объекту типа Trainer нужно передать в качестве аргумента путь к конфигурационному JSON-файлу в TrainingArguments:
+
+```python
+from transformers import Trainer, TrainingArguments
+
+training_args = TrainingArguments(
+    "test-clm",
+    learning_rate=2e-5,
+    num_train_epochs=1,
+    deepspeed = "./ds_config.json"
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=lm_datasets["train"],
+)
+```
+
+Подробнее об интеграции transformers с DeepSpeed, а также о том, как обучать модели без Trainer с помощью PyTorch и DeepSpeed [здесь](https://huggingface.co/transformers/master/main_classes/deepspeed.html).
+
+
