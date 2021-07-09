@@ -10,7 +10,7 @@ dependencies:
   - cmake
   - cudatoolkit=10.1
   - cudnn=7.6
-  - cxx-compiler
+  - cxx-compiler=1.1.0
   - jupyterlab
   - mpi4py
   - nccl
