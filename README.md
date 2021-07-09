@@ -166,7 +166,7 @@ mpirun python3 ds_gpt2.py
 - [Установка Anaconda](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-20-04-ru)
 - [PyTorch-gpu 1.7.1](https://anaconda.org/conda-forge/pytorch-gpu/files)
 - [transformers](https://huggingface.co/transformers/master/index.html)
-- [CUDA GPUs Compute Capability](ttps://developer.nvidia.com/cuda-gpus#compute)
+- [CUDA GPUs Compute Capability](https://developer.nvidia.com/cuda-gpus#compute)
 - [DeepSpeed Advanced Install](https://www.deepspeed.ai/tutorials/advanced-install/)
 - [DeepSpeed Integration (transformers)](https://huggingface.co/transformers/master/main_classes/deepspeed.html)
 - [DeepSpeed конфигурационные файлы JSON](https://www.deepspeed.ai/docs/config-json/)
