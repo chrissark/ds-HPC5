@@ -1,6 +1,12 @@
 # Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.3 + transformers 4.6.1 на кластере HPC5
 
-## 1. Установка Anaconda
+ - [Установка Anaconda](#установка-anaconda) 
+ - [Создание conda environment с PyTorch и transformers](#создание-conda-environment-с-pytorch-и-transformers)
+ - [Сборка DeepSpeed](#сборка-deepspeed)
+ - [Пример программы для обучения GPT-2](#пример-программы-для-обучения-gpt-2)
+ - [Запуск параллельной задачи SLURM](#запуск-параллельной-задачи-slurm)
+
+## Установка Anaconda
   1. В режиме стандартного пользователя без прав root загрузите последнюю версию скрипта bash установки Anaconda (на момент написания последняя версия 2021.05): 
  
      ```
@@ -36,7 +42,7 @@
      source .bashrc
      ```
   Более подробное описание установки и использования Anaconda [здесь](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-20-04-ru).
-## 2. Создание conda environment с PyTorch и transformers
+## Создание conda environment с PyTorch и transformers
    1. Подключите CUDA 10.1:
       
       ```
@@ -55,7 +61,7 @@
       ```
    Подключать CUDA 10.1 следует при каждой активации созданной среды. Так, ```module load cuda/10.1``` нужно прописывать в SLURM-сценариях перед ```conda activate```.
       
-## 3. Сборка DeepSpeed
+## Сборка DeepSpeed
    1. DeepSpeed нужно собрать отдельно в созданном environment. Для этого скопируйте репозиторий DeepSpeed:
       
       ```shell
