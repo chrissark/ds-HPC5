@@ -3,12 +3,12 @@ import time
 import deepspeed
 
 
-datasets = load_dataset('wikitext', 'wikitext-2-raw-v1', cache_dir='./wikitexts')
+datasets = load_dataset('wikitext', 'wikitext-2-raw-v1', cache_dir='/s/ls4/users/kristina/nlp/GPT-2/wikitexts')
 
 
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
-tokenizer = GPT2Tokenizer.from_pretrained('./distgpt2-tokenizer/')
-model = GPT2LMHeadModel.from_pretrained('./distgpt2')
+tokenizer = GPT2Tokenizer.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2-tokenizer/')
+model = GPT2LMHeadModel.from_pretrained('/s/ls4/users/kristina/nlp/GPT-2/distgpt2')
 
 def tokenize_function(examples):
     return tokenizer(examples["text"])
