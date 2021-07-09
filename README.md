@@ -1,4 +1,4 @@
-# Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.3 + transformers на кластере HPC5
+# Руководство к установке и использованию PyTorch 1.7.1 + DeepSpeed 0.4.3 + transformers 4.6.1 на кластере HPC5
 
 ## 1. Установка Anaconda
   1. В режиме стандартного пользователя без прав root загрузите последнюю версию скрипта bash установки Anaconda (на момент написания последняя версия 2021.05): 
@@ -43,7 +43,7 @@
       module load cuda/10.1
       ```
       
-   2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. PyTorch и transformers:
+   2. Создайте environment с помощью файла [deepspeed_env.yml](./deepspeed_env.yml), в котором перечислены все необходимые зависимости, в т.ч. PyTorch-gpu 1.7.1 и transformers:
       
       ```
       conda env create --name deepspeed_env --file deepspeed_env.yml
@@ -53,6 +53,7 @@
       ```
       conda activate deepspeed_env
       ```
+   Подключать CUDA 10.1 следует при каждой активации созданной среды. Так, ```module load cuda/10.1``` нужно прописывать в SLURM-сценариях перед ```conda activate```.
       
 ## 3. Сборка DeepSpeed
    1. DeepSpeed нужно собрать отдельно в созданном environment. Для этого скопируйте репозиторий DeepSpeed:
@@ -76,6 +77,16 @@
      ds_report
      ```  
      Вывод команды должен выглядеть так:
-     ![изображение](https://user-images.githubusercontent.com/64375679/124972392-f6e32500-e032-11eb-9e85-3ff39282653d.png)
+     ![изображение](https://user-images.githubusercontent.com/64375679/125061956-8c73c880-e0b6-11eb-927a-02b48c54ade4.png)
+     
+     Утилиты DeepSpeed, такие как cpu_adam, fused_adam и др., компилируются динамически (JIT) во время запуска программы. Можно предустановить некоторые из них, устанавливая различные переменные, равными 1, например:
+     
+     ```
+     DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 pip install .
+     ```
+     Полный список переменных и подробности установки DeepSpeed приведены [здесь](https://www.deepspeed.ai/tutorials/advanced-install/) и [здесь](https://huggingface.co/transformers/master/main_classes/deepspeed.html). 
+     
+     **Замечание**: ```DS_BUILD_OPS=1 pip install .``` - предварительная установка всех утилит сразу, завершается с ошибкой при ```TORCH_CUDA_ARCH_LIST="3.7"```, но работает при ```TORCH_CUDA_ARCH_LIST="7.0"```.
+
 
  
