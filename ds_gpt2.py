@@ -62,10 +62,10 @@ trainer.train()
 end = time.time()
 
 
-import math
-eval_results = trainer.evaluate()
+#import math
+#eval_results = trainer.evaluate()
 
 
 if rank == 0:
    print ("Time per epoch: ", round((end - start), 2))
-   print(f"Perplexity: {math.exp(eval_results['eval_loss']):.2f}")
+   #print(f"Perplexity: {math.exp(eval_results['eval_loss']):.2f}")
